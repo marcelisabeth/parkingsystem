@@ -11,7 +11,6 @@ import org.apache.logging.log4j.Logger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.Timestamp;
 
 public class TicketDAO {
@@ -91,6 +90,14 @@ public class TicketDAO {
         return false;
     }
     
+    /**
+     * 
+     * Calcul la récurrence d'un véhicule
+     * @param vehicleRegNumber
+     * @return records
+     * @author melisabeth
+     */
+    
     public int getRecurrentUser(String vehicleRegNumber) {
     	Connection con = null;
         try {
@@ -98,7 +105,6 @@ public class TicketDAO {
             PreparedStatement ps = con.prepareStatement(DBConstants.GET_RECURRENT_USER);
             ps.setString(1,vehicleRegNumber);
             ResultSet rs = ps.executeQuery();
-            // int result = rs.getInt(1);
             while (rs.next()) {
                 records = rs.getInt(1);
               }

@@ -26,7 +26,12 @@ public class FareCalculatorService {
 		long duration = outHour - inHour;
 		
 		
-		// code : gratuit pour moins de 30 minutes
+		  /**
+	     * 
+	     * Rend le stationnement gratuit si le client reste moins de 30 minutes
+	     * @author melisabeth
+	     */
+		
 		if (duration <= 30) {
 			ticket.setPrice(0);
 		}
@@ -46,7 +51,12 @@ public class FareCalculatorService {
 				throw new IllegalArgumentException("Unkown Parking Type");
 			}
 			
-		// Remise de 5% si le client est déjà venu
+			  /**
+		     * 
+		     * Applique une remise de 5% si le client est déjà venu au moins une fois
+		     * @author melisabeth
+		     */
+		
 		recurrentUser = ticketDAO.getRecurrentUser(ticket.getVehicleRegNumber());
 			
 		 if (recurrentUser > 1)  {
