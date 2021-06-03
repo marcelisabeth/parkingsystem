@@ -25,16 +25,20 @@ public class FareCalculatorServiceTest {
     private Ticket ticket;
     
     @Mock
-    private static TicketDAO ticketDAO;
+    private static TicketDAO mockticketDAO;
+    
   
 
     @BeforeAll
     private static void setUp() {
-    	ticketDAO = new TicketDAO();
+    	
         fareCalculatorService = new FareCalculatorService();
+        
     }
 
-    @BeforeEach
+ 
+
+	@BeforeEach
     private void setUpPerTest() {
         ticket = new Ticket();
        
@@ -170,7 +174,7 @@ public class FareCalculatorServiceTest {
           
     }
     
-     // @Test
+      @Test
     public void calculateFareBikeWithDiscount(){
         Date inTime = new Date();
         inTime.setTime( System.currentTimeMillis() - (  60 * 60 * 1000) );//60 minutes parking time should give an hour parking fare
@@ -183,15 +187,15 @@ public class FareCalculatorServiceTest {
         
        
         
-        // when(ticketDAO.getRecurrentUser(Mockito.anyString())).thenReturn(2);
-        when(ticketDAO.getRecurrentUser("")).thenReturn(2);
+        
+       when(mockticketDAO.getRecurrentUser("ABCDEF")).thenReturn(2);
 
         fareCalculatorService.calculateFare(ticket);
         assertEquals(0.95 , ticket.getPrice());
           
     }
     
-    // @Test
+      @Test
     public void calculateFareCarWithDiscount(){
         Date inTime = new Date();
         inTime.setTime( System.currentTimeMillis() - (  60 * 60 * 1000) );//60 minutes parking time should give an hour parking fare
@@ -202,8 +206,8 @@ public class FareCalculatorServiceTest {
         ticket.setOutTime(outTime);
         ticket.setParkingSpot(parkingSpot);
         
-        // when(ticketDAO.getRecurrentUser(Mockito.anyString())).thenReturn(2);
-        when(ticketDAO.getRecurrentUser("")).thenReturn(2);
+    
+        when(mockticketDAO.getRecurrentUser("ABCDEF")).thenReturn(2);
         
         fareCalculatorService.calculateFare(ticket);
         assertEquals( 0.95 , ticket.getPrice());
