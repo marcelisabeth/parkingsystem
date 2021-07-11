@@ -10,7 +10,7 @@ public class FareCalculatorService {
 	int recurrentUser = 0;
 
 
-	public void calculateFare(Ticket ticket) {
+	public void calculateFare(Ticket ticket, boolean isRecurrentUser) {
 		if ((ticket.getOutTime() == null) || (ticket.getOutTime().before(ticket.getInTime()))) {
 			throw new IllegalArgumentException("Out time provided is incorrect:" + ticket.getOutTime().toString());
 		}
@@ -59,7 +59,7 @@ public class FareCalculatorService {
 		
 		recurrentUser = ticketDAO.getRecurrentUser(ticket.getVehicleRegNumber());
 			
-		 if (recurrentUser > 1)  {
+		 if (isRecurrentUser)  {
 		    ticket.setPrice(ticket.getPrice()*0.95);
 		    	
 		    }
